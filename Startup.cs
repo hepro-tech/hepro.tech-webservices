@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace hepro.tech_webservices
+namespace hepro.tech.webservices
 {
     public class Startup
     {
