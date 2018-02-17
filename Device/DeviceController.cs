@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using hepro.tech.webservices.events;
-using hepro.tech.webservices.models;
+using HeProTech.Webservices.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace hepro.tech.webservices.Controllers
+namespace HeProTech.Webservices.Device
 {
     public class DeviceController : Controller
     {

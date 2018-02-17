@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace hepro.tech.webservices
+namespace HeProTech.Webservices.Device
 {
     public class DeviceManager
     {

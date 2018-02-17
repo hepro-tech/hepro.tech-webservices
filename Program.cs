@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace hepro.tech.webservices
+namespace HeProTech.Webservices
 {
     public class Program
     {

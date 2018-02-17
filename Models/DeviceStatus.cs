@@ -1,4 +1,4 @@
-namespace hepro.tech.webservices.models
+namespace HeProTech.Webservices.Models
 {
     public class DeviceStatus
     {
