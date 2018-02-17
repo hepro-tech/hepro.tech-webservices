@@ -10,16 +10,23 @@ namespace hepro.tech.webservices.Controllers
 {
     public class DeviceController : Controller
     {
-        [HttpPost("/arm/")]
-        public void ArmDevice()
-        {
+        private readonly DeviceManager _deviceManager;
 
+        public DeviceController(DeviceManager deviceManager)
+        {
+            _deviceManager = deviceManager;
+        }
+
+        [HttpPost("/arm/")]
+        public async Task ArmDeviceAsync()
+        {
+            await _deviceManager.ArmAsync();
         }
 
         [HttpPost("/disarm/")]
-        public void DisarmDevice()
+        public async Task DisarmDevice()
         {
-
+            await _deviceManager.DisarmAsync();
         }
 
         [HttpGet("/status/")]
