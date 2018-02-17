@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using hepro.tech.webservices.events;
+using hepro.tech.webservices.models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace hepro.tech.webservices.Controllers
@@ -22,9 +23,13 @@ namespace hepro.tech.webservices.Controllers
         }
 
         [HttpGet("/status/")]
-        public void GetStatus()
+        public DeviceStatus GetStatus()
         {
-
+            return new DeviceStatus
+            {
+                Name = "Cookie Jar",
+                Armed = true
+            };
         }
     }
 }
