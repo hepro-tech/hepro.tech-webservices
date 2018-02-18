@@ -25,8 +25,10 @@ namespace HeProTech.Webservices.Notifications
             options.AppId = Guid.Parse(_appId);
             options.IncludedSegments = new List<string> { "All" };
             options.Contents.Add(LanguageCodes.English, notifcationMessage);
+            options.DeliverToAndroid = true;
 
-            await Task.Run(() => _notificationClient.Notifications.Create(options));
+            _notificationClient.Notifications.Create(options);
+            await Task.CompletedTask;
         }
     }
 }
