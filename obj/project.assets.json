@@ -2735,6 +2735,27 @@
           "lib/netstandard1.3/Newtonsoft.Json.Bson.dll": {}
         }
       },
+      "OneSignal.CSharp.SDK/0.10.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45/OneSignal.CSharp.SDK.dll": {}
+        },
+        "runtime": {
+          "lib/net45/OneSignal.CSharp.SDK.dll": {}
+        }
+      },
+      "Particle.SDK/0.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "8.0.3"
+        },
+        "compile": {
+          "lib/net452/Particle.SDK.dll": {}
+        },
+        "runtime": {
+          "lib/net452/Particle.SDK.dll": {}
+        }
+      },
       "Remotion.Linq/2.1.1": {
         "type": "package",
         "dependencies": {
@@ -7555,6 +7576,27 @@
         "lib/netstandard1.3/Newtonsoft.Json.Bson.xml",
         "newtonsoft.json.bson.1.0.1.nupkg.sha512",
         "newtonsoft.json.bson.nuspec"
+      ]
+    },
+    "OneSignal.CSharp.SDK/0.10.0": {
+      "sha512": "LWhq8bpkIkOumcdKr9hIfRaAvDWSxaEsfqea84jYuj9oKPlDfdLOr8y8lYd3Lqf/sYLJmw9Rc+GdGWCAgTfoZA==",
+      "type": "package",
+      "path": "onesignal.csharp.sdk/0.10.0",
+      "files": [
+        "lib/net45/OneSignal.CSharp.SDK.dll",
+        "onesignal.csharp.sdk.0.10.0.nupkg.sha512",
+        "onesignal.csharp.sdk.nuspec"
+      ]
+    },
+    "Particle.SDK/0.1.0": {
+      "sha512": "JB82rxmUqowe4DAgTJnXcmE5UlhVADqRym9ZLDMNH+nRYeRY/mIe5ePXxcLRPa5zu+FjDjvKCvwsYMwceQo9VA==",
+      "type": "package",
+      "path": "particle.sdk/0.1.0",
+      "files": [
+        "lib/net452/Particle.SDK.dll",
+        "lib/portable46-win81+wpa81/Particle.SDK.dll",
+        "particle.sdk.0.1.0.nupkg.sha512",
+        "particle.sdk.nuspec"
       ]
     },
     "Remotion.Linq/2.1.1": {
@@ -12529,7 +12571,9 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "Microsoft.AspNetCore.All >= 2.0.0",
-      "Microsoft.NETCore.App >= 2.0.0"
+      "Microsoft.NETCore.App >= 2.0.0",
+      "OneSignal.CSharp.SDK >= 0.10.0",
+      "Particle.SDK >= 0.1.0"
     ]
   },
   "packageFolders": {
@@ -12579,6 +12623,14 @@
           "Microsoft.AspNetCore.All": {
             "target": "Package",
             "version": "2.0.0"
+          },
+          "OneSignal.CSharp.SDK": {
+            "target": "Package",
+            "version": "0.10"
+          },
+          "Particle.SDK": {
+            "target": "Package",
+            "version": "0.1.0"
           }
         },
         "imports": [
@@ -12588,5 +12640,27 @@
         "warn": true
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'OneSignal.CSharp.SDK 0.10.0' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.",
+      "libraryId": "OneSignal.CSharp.SDK",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Particle.SDK 0.1.0' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Particle.SDK",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.0"
+      ]
+    }
+  ]
 }
