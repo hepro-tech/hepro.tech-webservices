@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HeProTech.Webservices.Events;
 using HeProTech.Webservices.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +11,12 @@ namespace HeProTech.Webservices.Device
     public class DeviceController : Controller
     {
         private readonly DeviceManager _deviceManager;
+        private readonly EventHistory _eventHistory;
 
-        public DeviceController(DeviceManager deviceManager)
+        public DeviceController(DeviceManager deviceManager, EventHistory eventHistory)
         {
             _deviceManager = deviceManager;
+            _eventHistory = eventHistory;
         }
 
         [HttpPost("/arm/")]
@@ -31,11 +34,28 @@ namespace HeProTech.Webservices.Device
         [HttpGet("/status/")]
         public DeviceStatus GetStatus()
         {
+            var armStatus = _eventHistory.GetLatestEventWhere(e => e.Type == "ARM").Data;
+            var latestEvent = _eventHistory.GetLatestEvent();
+
             return new DeviceStatus
             {
-                Name = "Cookie Jar",
-                Armed = true
+                Name = "The Sensor Kit",
+                Armed = armStatus == "ARM",
+                Description = BuildDescriptionFrom(latestEvent),
+                LatestEventTimestamp = latestEvent.Timestamp
             };
+        }
+
+        private string BuildDescriptionFrom(DeviceEvent e)
+        {
+            switch (e.Type) {
+                case "ARM" when e.Data == "ARM":
+                    return "The device is armed!";
+                case "ARM" when e.Data == "DISARM":
+                    return "The device is not armed.";
+                default:
+                    return "Unknown";
+            }
         }
     }
 }

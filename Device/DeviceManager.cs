@@ -10,7 +10,7 @@ namespace HeProTech.Webservices.Device
     {
         private readonly ParticleDevice _device;
         private readonly EventHistory _eventHistory;
-        public event EventHandler<DeviceEvent> DeviceEvent;
+        public event EventHandler<DeviceEvent> DeviceHadEvent;
 
         public DeviceManager(DeviceFactory deviceFactory, EventHistory eventHistory)
         {
@@ -22,21 +22,25 @@ namespace HeProTech.Webservices.Device
         public async Task ArmAsync()
         {
             await PublishEventAsync("ARM", "ARM");
+            _eventHistory.RecordEvent(DeviceEvent.Of("ARM", "ARM"));
         }
 
         public async Task DisarmAsync()
         {
             await PublishEventAsync("ARM", "DISARM");
+            _eventHistory.RecordEvent(DeviceEvent.Of("ARM", "DISARM"));
         }
 
         public async Task ElevateSecurityAsync()
         {
             await PublishEventAsync("SECURITY", "ELEVATE");
+            _eventHistory.RecordEvent(DeviceEvent.Of("SECURITY", "ELEVATE"));
         }
 
         public async Task ReduceSecurityAsync()
         {
             await PublishEventAsync("SECURITY", "REDUCE");
+            _eventHistory.RecordEvent(DeviceEvent.Of("SECURITY", "REDUCE"));
         }
 
         private async Task PublishEventAsync(string name, string data = "")
@@ -54,7 +58,7 @@ namespace HeProTech.Webservices.Device
             };
 
             _eventHistory.RecordEvent(deviceEvent);
-            DeviceEvent?.Invoke(this, deviceEvent);
+            DeviceHadEvent?.Invoke(this, deviceEvent);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace HeProTech.Webservices.Events
             _deviceManager = deviceManager;
             _notificationManager = notificationManager;
 
-            _deviceManager.DeviceEvent += async (s, e) => await OnDeviceEvent(s, e);
+            _deviceManager.DeviceHadEvent += async (s, e) => await OnDeviceEvent(s, e);
         }
 
         private async Task OnDeviceEvent(object sender, DeviceEvent e)

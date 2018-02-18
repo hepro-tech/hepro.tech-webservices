@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,7 +21,12 @@ namespace HeProTech.Webservices.Events
 
         public DeviceEvent GetLatestEvent()
         {
-            return GetEvents().First();
+            return GetEvents().FirstOrDefault();
+        }
+
+        public DeviceEvent GetLatestEventWhere(Func<DeviceEvent, bool> filter)
+        {
+            return GetEvents().Where(filter).FirstOrDefault();
         }
 
         public void RecordEvent(DeviceEvent deviceEvent)
