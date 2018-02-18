@@ -36,6 +36,7 @@ namespace HeProTech.Webservices
             services.AddSingleton<DeviceFactory>();
             services.AddSingleton<DeviceManager>();
             services.AddSingleton<EventTracker>();
+            services.AddSingleton<EventHistory>();
             services.AddMvc();
         }
 

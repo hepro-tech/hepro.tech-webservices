@@ -9,32 +9,34 @@ namespace HeProTech.Webservices.Device
     public class DeviceManager
     {
         private readonly ParticleDevice _device;
+        private readonly EventHistory _eventHistory;
         public event EventHandler<DeviceEvent> DeviceEvent;
 
-        public DeviceManager(DeviceFactory deviceFactory)
+        public DeviceManager(DeviceFactory deviceFactory, EventHistory eventHistory)
         {
             _device = deviceFactory.GetDeviceAsync().Result;
+            _eventHistory = eventHistory;
             ParticleCloud.SharedCloud.SubscribeToDeviceEventsWithPrefixAsync(OnParticleEvent, _device.Id).Wait();
         }
 
         public async Task ArmAsync()
         {
-            await PublishEventAsync("ARM");
+            await PublishEventAsync("ARM", "ARM");
         }
 
         public async Task DisarmAsync()
         {
-            await PublishEventAsync("DISARM");
+            await PublishEventAsync("ARM", "DISARM");
         }
 
         public async Task ElevateSecurityAsync()
         {
-            await PublishEventAsync("ELEVATE");
+            await PublishEventAsync("SECURITY", "ELEVATE");
         }
 
         public async Task ReduceSecurityAsync()
         {
-            await PublishEventAsync("REDUCE");
+            await PublishEventAsync("SECURITY", "REDUCE");
         }
 
         private async Task PublishEventAsync(string name, string data = "")
@@ -44,11 +46,15 @@ namespace HeProTech.Webservices.Device
 
         private void OnParticleEvent(object sender, ParticleEventResponse particeEvent)
         {
-            DeviceEvent?.Invoke(this, new DeviceEvent
+            var deviceEvent = new DeviceEvent
             {
                 Type = particeEvent.Name,
-                Data = particeEvent.Data
-            });
+                Data = particeEvent.Data,
+                Timestamp = particeEvent.PublishedAt
+            };
+
+            _eventHistory.RecordEvent(deviceEvent);
+            DeviceEvent?.Invoke(this, deviceEvent);
         }
     }
 }
