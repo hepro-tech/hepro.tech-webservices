@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HeProTech.Webservices.Device;
+using HeProTech.Webservices.Events;
 using HeProTech.Webservices.Notifications;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,12 +35,16 @@ namespace HeProTech.Webservices
             services.AddSingleton<NotificationManager>();
             services.AddSingleton<DeviceFactory>();
             services.AddSingleton<DeviceManager>();
+            services.AddSingleton<EventTracker>();
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // spin up the event tracker
+            app.ApplicationServices.GetService<EventTracker>();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
