@@ -27,12 +27,11 @@ namespace HeProTech.Webservices.Events
         {
             var latestMotionEvent = _eventHistory.GetLatestEventWhere(ev => ev.Type == EventTypes.MOTION_EVENT);
             var latestSecurityEvent = _eventHistory.GetLatestEventWhere(ev => ev.Type == "SECURITY");
-            var isElevated = latestMotionEvent?.Data == "ELEVATED";
 
             var latestReduce = _eventHistory.GetLatestEventWhere(ev => ev.Data == "REDUCE")?.Timestamp ?? DateTime.MinValue;
             var elevateCount = _eventHistory.GetEvents().Where(ev => ev.Timestamp > latestReduce).Count();
 
-            if (e.Type == EventTypes.MOTION_EVENT && !isElevated) {
+            if (e.Type == EventTypes.MOTION_EVENT && elevateCount < 1) {
                 _eventHistory.RecordEvent(DeviceEvent.Of(EventTypes.MOTION_EVENT));
                 await _deviceManager.ElevateSecurityAsync();
             } else if (e.Type == EventTypes.PROXIMITY_EVENT) {
