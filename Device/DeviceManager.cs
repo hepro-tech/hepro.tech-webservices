@@ -45,7 +45,7 @@ namespace HeProTech.Webservices.Device
 
         private async Task PublishEventAsync(string name, string data = "")
         {
-            await ParticleCloud.SharedCloud.PublishEventAsync(name, data);
+            await ParticleCloud.SharedCloud.PublishEventAsync(name, data, false);
         }
 
         private void OnParticleEvent(object sender, ParticleEventResponse particeEvent)

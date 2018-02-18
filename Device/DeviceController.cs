@@ -34,7 +34,7 @@ namespace HeProTech.Webservices.Device
         [HttpGet("/status/")]
         public DeviceStatus GetStatus()
         {
-            var armStatus = _eventHistory.GetLatestEventWhere(e => e.Type == "ARM").Data;
+            var armStatus = _eventHistory.GetLatestEventWhere(e => e.Type == "ARM")?.Data;
             var latestEvent = _eventHistory.GetLatestEvent();
 
             return new DeviceStatus
@@ -46,12 +46,12 @@ namespace HeProTech.Webservices.Device
             };
         }
 
-        private string BuildDescriptionFrom(DeviceEvent e)
+        private string BuildDescriptionFrom(DeviceEvent deviceEvent)
         {
-            switch (e.Type) {
-                case "ARM" when e.Data == "ARM":
+            switch (deviceEvent) {
+                case DeviceEvent e when e.Type == "ARM" && e.Data == "ARM":
                     return "The device is armed!";
-                case "ARM" when e.Data == "DISARM":
+                case DeviceEvent e when e.Type == "ARM" && e.Data == "DISARM":
                     return "The device is not armed.";
                 default:
                     return "Unknown";
