@@ -42,7 +42,7 @@ namespace HeProTech.Webservices.Device
                 Name = "The Sensor Kit",
                 Armed = armStatus == "ARM",
                 Description = BuildDescriptionFrom(latestEvent),
-                LatestEventTimestamp = latestEvent.Timestamp
+                LatestEventTimestamp = latestEvent?.Timestamp ?? DateTime.MinValue
             };
         }
 

@@ -18,11 +18,15 @@ namespace HeProTech.Webservices.Events
             _deviceManager.DeviceHadEvent += async (s, e) => await OnDeviceEvent(s, e);
         }
 
-        private async Task OnDeviceEvent(object sender, DeviceEvent e)
+        private async Task OnDeviceEvent(object sender, DeviceEvent deviceEvent)
         {
-            if (e.Data == "SOMEBODY TOUCHA MY SPAGHET")
+            switch(deviceEvent)
             {
-                await _notificationManager.BroadcastNotificationAsync("SOMEBODY TOUCHA MY SPAGHET");
+                case var e when e.Type == EventTypes.MOTION_EVENT && int.Parse(e.Data) < 100:
+                    await _deviceManager.ElevateSecurityAsync();
+                    break;
+                default:
+                    return;
             }
         }
     }
