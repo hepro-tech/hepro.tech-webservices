@@ -27,8 +27,7 @@ namespace HeProTech.Webservices.Notifications
             options.Contents.Add(LanguageCodes.English, notifcationMessage);
             options.DeliverToAndroid = true;
 
-            _notificationClient.Notifications.Create(options);
-            await Task.CompletedTask;
+            await Task.Run(() => _notificationClient.Notifications.Create(options));
         }
     }
 }
